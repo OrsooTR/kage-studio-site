@@ -2,7 +2,7 @@
   "use strict";
 
   // ---- Discord invite (fill this in once you have the invite link) ----
-  var DISCORD_URL = ""; // e.g. "https://discord.gg/xxxxxxx"
+  var DISCORD_URL = "https://discord.gg/Fheyv5y45D";
   document.querySelectorAll("[data-discord]").forEach(function (a) {
     if (DISCORD_URL) { a.setAttribute("href", DISCORD_URL); a.setAttribute("target", "_blank"); a.setAttribute("rel", "noopener"); }
     else { a.addEventListener("click", function (e) { e.preventDefault(); alert("Discord invite coming soon."); }); }

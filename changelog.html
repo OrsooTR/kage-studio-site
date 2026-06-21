@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Changelog — Kage Studio</title>
+    <meta name="description" content="What's new in Kage Studio — every release." />
+    <link rel="icon" href="assets/logo-k.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header id="nav">
+        <a class="brand" href="index.html">
+            <img src="assets/logo-k.png" alt="" class="brand-mark" />
+            <span class="brand-name">KAGE<span class="brand-sub">STUDIO</span></span>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html#features">Features</a>
+            <a href="index.html#download">Download</a>
+            <a href="index.html#faq">FAQ</a>
+        </nav>
+        <a class="btn btn-primary nav-cta" href="index.html">← Back to site</a>
+    </header>
+
+    <main class="legal changelog">
+        <h1>Changelog</h1>
+        <p class="legal-meta">Everything new in Kage Studio — updated with every release.</p>
+        <div id="cl-list"><p class="muted">Loading the latest releases…</p></div>
+    </main>
+
+    <footer id="foot">
+        <div class="foot-inner">
+            <div class="foot-brand"><img src="assets/logo-k.png" alt="" /><span>KAGE<b>STUDIO</b></span></div>
+            <div class="foot-links">
+                <a href="index.html">Home</a>
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+        <div class="foot-bottom">改善 · Kage Studio — made for anime editors.</div>
+    </footer>
+
+    <script>
+    (function () {
+        var list = document.getElementById("cl-list");
+        var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        function fmtDate(s) {
+            var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || "");
+            if (!m) return s || "";
+            return parseInt(m[3], 10) + " " + MONTHS[parseInt(m[2], 10) - 1] + " " + m[1];
+        }
+        function render(releases) {
+            if (!releases || !releases.length) { list.innerHTML = '<p class="muted">No releases yet.</p>'; return; }
+            list.innerHTML = "";
+            releases.forEach(function (r, i) {
+                var item = document.createElement("div");
+                item.className = "cl-item" + (i === 0 ? " latest" : "");
+                var head = document.createElement("div"); head.className = "cl-head";
+                var ver = document.createElement("span"); ver.className = "cl-ver"; ver.textContent = "v" + r.version;
+                head.appendChild(ver);
+                if (i === 0) { var lt = document.createElement("span"); lt.className = "cl-latest"; lt.textContent = "Latest"; head.appendChild(lt); }
+                var dt = document.createElement("span"); dt.className = "cl-date"; dt.textContent = fmtDate(r.date); head.appendChild(dt);
+                item.appendChild(head);
+                var notes = document.createElement("div"); notes.className = "cl-notes";
+                var arr = Array.isArray(r.notes) ? r.notes : (r.notes ? [r.notes] : []);
+                if (arr.length > 1) {
+                    var ul = document.createElement("ul");
+                    arr.forEach(function (n) { var li = document.createElement("li"); li.textContent = n; ul.appendChild(li); });
+                    notes.appendChild(ul);
+                } else { notes.textContent = arr[0] || ""; }
+                item.appendChild(notes);
+                list.appendChild(item);
+            });
+        }
+        fetch("https://api.github.com/repos/OrsooTR/kage-studio/contents/changelog.json?ref=main&t=" + Date.now(), { headers: { Accept: "application/vnd.github.raw" } })
+            .then(function (res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.text(); })
+            .then(function (txt) { render((JSON.parse(txt) || {}).releases || []); })
+            .catch(function () {
+                list.innerHTML = '<p class="muted">Couldn’t load the changelog right now. See all releases on <a class="lnk" href="https://github.com/OrsooTR/kage-studio/commits/main" target="_blank" rel="noopener">GitHub</a>.</p>';
+            });
+    })();
+    </script>
+</body>
+</html>
