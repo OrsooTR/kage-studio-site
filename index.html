@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kage Studio — the all-in-one After Effects toolkit for anime editors</title>
+    <meta name="description" content="Browse anime clips, AI-upscale and interpolate footage, shape Flow-style easing curves and manage assets — all inside an After Effects panel. Free, with automatic updates." />
+    <meta property="og:title" content="Kage Studio" />
+    <meta property="og:description" content="The all-in-one After Effects toolkit for anime editors." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="assets/logo-k.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- icon sprite -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="17" y2="20"/><line x1="3" y1="12" x2="21" y2="12"/></symbol>
+        <symbol id="i-kaizen" viewBox="0 0 24 24"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" fill="currentColor" stroke="none"/><circle cx="19" cy="5" r="1.4" fill="currentColor" stroke="none"/></symbol>
+        <symbol id="i-graph" viewBox="0 0 24 24"><path d="M3 21C3 21 5 4 21 3"/><circle cx="3" cy="21" r="1.6" fill="currentColor" stroke="none"/><circle cx="21" cy="3" r="1.6" fill="currentColor" stroke="none"/></symbol>
+        <symbol id="i-assets" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+        <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M5 13c-1.5 1-2 5-2 5s4-.5 5-2"/><path d="M12 15l-3-3c1-5 4-9 11-9 0 7-4 10-9 11z"/><circle cx="15" cy="9" r="1.4" fill="currentColor" stroke="none"/></symbol>
+        <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+        <symbol id="i-upscale" viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></symbol>
+        <symbol id="i-bolt" viewBox="0 0 24 24"><polygon points="13 2 4 14 11 14 10 22 20 9 13 9 13 2" fill="currentColor" stroke="none"/></symbol>
+        <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
+        <symbol id="i-discord" viewBox="0 0 24 24"><path d="M19 5a16 16 0 0 0-4-1l-.3.6a12 12 0 0 1 3.4 1.7 13 13 0 0 0-11.2 0A12 12 0 0 1 10.3 4.6L10 4a16 16 0 0 0-4 1C3.5 8.6 2.8 12.2 3 15.8A16 16 0 0 0 7.9 18l.6-1a10 10 0 0 1-1.6-.8l.4-.3a11 11 0 0 0 9.4 0l.4.3a10 10 0 0 1-1.6.8l.6 1a16 16 0 0 0 4.9-2.2c.3-4.2-.6-7.7-2-10.8zM9.5 14a1.5 1.5 0 0 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 0 1 0-3 1.5 1.5 0 0 1 0 3z" fill="currentColor" stroke="none"/></symbol>
+        <symbol id="i-github" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.300-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7 3.6 3.6 0 0 1 .1-2.7s.8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.8v2.6c0 .3.2.6.7.5A10 10 0 0 0 12 2z" fill="currentColor" stroke="none"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+    </svg>
+
+    <header id="nav">
+        <a class="brand" href="#top">
+            <img src="assets/logo-k.png" alt="" class="brand-mark" />
+            <span class="brand-name">KAGE<span class="brand-sub">STUDIO</span></span>
+        </a>
+        <nav class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#panel">The panel</a>
+            <a href="#download">Download</a>
+            <a class="nav-ghost" href="https://github.com/OrsooTR/kage-studio" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+        <a class="btn btn-primary nav-cta" href="#download"><svg class="ic"><use href="#i-download"/></svg> Get it free</a>
+    </header>
+
+    <!-- ===================== HERO ===================== -->
+    <section id="top" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-inner">
+            <div class="hero-copy">
+                <div class="badge-pill">影 · Free for After Effects 2022+</div>
+                <h1>The all-in-one<br /><span class="grad-text">After Effects toolkit</span><br />for anime editors.</h1>
+                <p class="lead">Browse anime clips, AI-upscale &amp; interpolate footage, shape Flow-style easing curves and manage your assets — all from one beautiful panel inside After Effects.</p>
+                <div class="hero-cta">
+                    <a class="btn btn-primary btn-lg" href="#download"><svg class="ic"><use href="#i-download"/></svg> Download for Windows</a>
+                    <a class="btn btn-ghost btn-lg" href="#joindiscord" data-discord><svg class="ic"><use href="#i-discord"/></svg> Join the Discord</a>
+                </div>
+                <div class="hero-meta">
+                    <span><svg class="ic"><use href="#i-check"/></svg> Free</span>
+                    <span><svg class="ic"><use href="#i-check"/></svg> Windows</span>
+                    <span><svg class="ic"><use href="#i-check"/></svg> Auto-updating</span>
+                </div>
+            </div>
+
+            <!-- live panel mockup -->
+            <div class="mock" aria-hidden="true">
+                <div class="mock-glow"></div>
+                <div class="mock-panel">
+                    <div class="mp-top">
+                        <div class="mp-brand"><img src="assets/logo-k.png" alt="" /><span>KAGE<b>STUDIO</b></span></div>
+                        <div class="mp-acct">@Orsoo</div>
+                    </div>
+                    <div class="mp-tabs">
+                        <span class="mp-tab active"><svg class="ic"><use href="#i-film"/></svg>Clips</span>
+                        <span class="mp-tab"><svg class="ic"><use href="#i-kaizen"/></svg>Kaizen</span>
+                        <span class="mp-tab"><svg class="ic"><use href="#i-graph"/></svg>Graph</span>
+                        <span class="mp-tab"><svg class="ic"><use href="#i-assets"/></svg>Assets</span>
+                    </div>
+                    <div class="mp-grid" id="mpGrid"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FEATURES ===================== -->
+    <section id="features" class="section">
+        <div class="section-head">
+            <span class="kicker">Everything in one panel</span>
+            <h2>Built to make anime edits faster.</h2>
+        </div>
+        <div class="feature-grid">
+            <article class="feature">
+                <div class="feat-ic"><svg class="ic"><use href="#i-film"/></svg></div>
+                <h3>Clips</h3>
+                <p>Browse a huge anime library, preview clips inline, and drop them straight onto your timeline — no downloading, no tab-switching.</p>
+            </article>
+            <article class="feature">
+                <div class="feat-ic"><svg class="ic"><use href="#i-upscale"/></svg></div>
+                <h3>Kaizen — Upscale &amp; Interpolate</h3>
+                <p>AI-upscale (Real-ESRGAN) and frame-interpolate (RIFE) any clip or comp, chained, then dropped back exactly where it belongs.</p>
+            </article>
+            <article class="feature">
+                <div class="feat-ic"><svg class="ic"><use href="#i-graph"/></svg></div>
+                <h3>Graph — Flow-style easing</h3>
+                <p>Shape bezier easing curves, pick from the full easing library or save your own, and apply them to selected keyframes in one click.</p>
+            </article>
+            <article class="feature">
+                <div class="feat-ic"><svg class="ic"><use href="#i-assets"/></svg></div>
+                <h3>Assets</h3>
+                <p>Browse any folder on your PC with live previews for images, video, audio and 3D — select and import overlays &amp; SFX instantly.</p>
+            </article>
+            <article class="feature">
+                <div class="feat-ic"><svg class="ic"><use href="#i-rocket"/></svg></div>
+                <h3>Auto-updates</h3>
+                <p>The app and the panel keep themselves up to date. New features land automatically — no reinstalling, ever.</p>
+            </article>
+            <article class="feature">
+                <div class="feat-ic"><svg class="ic"><use href="#i-bolt"/></svg></div>
+                <h3>One-click install</h3>
+                <p>Install the desktop app, hit “Install extension”, and the panel is ready in After Effects. That’s it.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- ===================== PANEL SHOWCASE ===================== -->
+    <section id="panel" class="section section-alt">
+        <div class="showcase">
+            <div class="showcase-copy">
+                <span class="kicker">Inside the panel</span>
+                <h2>A graph editor that feels like <span class="grad-text">Flow</span>.</h2>
+                <p class="lead">Design the exact motion you want with a clean, compact curve editor — drag the handles or pick from 25 built-in easings, then apply to your keyframes. Save your favourite curves as presets.</p>
+                <ul class="ticks">
+                    <li><svg class="ic"><use href="#i-check"/></svg> Full easing library: quad, cubic, expo, back &amp; more</li>
+                    <li><svg class="ic"><use href="#i-check"/></svg> Save and reuse your own curves</li>
+                    <li><svg class="ic"><use href="#i-check"/></svg> Applies real temporal ease to selected keyframes</li>
+                </ul>
+            </div>
+            <div class="showcase-mock">
+                <div class="mock-glow"></div>
+                <div class="mock-panel graph-mock">
+                    <svg viewBox="0 -30 280 340" class="gmock-svg">
+                        <defs><linearGradient id="gcurve" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#ff5cc8"/></linearGradient></defs>
+                        <rect x="40" y="40" width="200" height="200" rx="6" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.16)"/>
+                        <line x1="40" y1="140" x2="240" y2="140" stroke="rgba(255,255,255,0.08)"/>
+                        <line x1="140" y1="40" x2="140" y2="240" stroke="rgba(255,255,255,0.08)"/>
+                        <line x1="40" y1="240" x2="240" y2="40" stroke="rgba(255,255,255,0.16)" stroke-dasharray="3 4"/>
+                        <line x1="40" y1="240" x2="68" y2="60" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
+                        <line x1="240" y1="40" x2="150" y2="78" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
+                        <path d="M40 240 C 68 60 150 78 240 40" fill="none" stroke="url(#gcurve)" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="40" cy="240" r="4" fill="#fff"/><circle cx="240" cy="40" r="4" fill="#fff"/>
+                        <circle cx="68" cy="60" r="8" fill="#8b5cf6" stroke="#fff" stroke-width="2.5"/>
+                        <circle cx="150" cy="78" r="8" fill="#8b5cf6" stroke="#fff" stroke-width="2.5"/>
+                    </svg>
+                    <div class="gmock-vals"><span>0.00</span><span>0.90</span><span>0.39</span><span>0.82</span></div>
+                    <div class="gmock-apply">APPLY</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== DOWNLOAD ===================== -->
+    <section id="download" class="section download">
+        <div class="dl-card">
+            <img src="assets/logo-full.png" alt="Kage Studio" class="dl-logo" />
+            <h2>Get Kage Studio</h2>
+            <p class="lead">Free download. Install the app, log in, install the extension — and open it in After Effects.</p>
+            <a class="btn btn-primary btn-xl" href="https://github.com/OrsooTR/kage-studio/releases/latest/download/KageStudioSetup.exe"><svg class="ic"><use href="#i-download"/></svg> Download for Windows</a>
+            <p class="muted small">Windows · After Effects 2022 or newer · ~80&nbsp;MB</p>
+            <div class="dl-steps">
+                <div class="step"><span class="num">1</span> Run the installer</div>
+                <div class="step"><span class="num">2</span> Open the app → <b>Install extension</b></div>
+                <div class="step"><span class="num">3</span> AE → Window → Extensions → <b>Kage Studio</b></div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="foot">
+        <div class="foot-inner">
+            <div class="foot-brand">
+                <img src="assets/logo-k.png" alt="" />
+                <span>KAGE<b>STUDIO</b></span>
+            </div>
+            <div class="foot-links">
+                <a href="https://github.com/OrsooTR/kage-studio" target="_blank" rel="noopener"><svg class="ic"><use href="#i-github"/></svg> GitHub</a>
+                <a href="#joindiscord" data-discord><svg class="ic"><use href="#i-discord"/></svg> Discord</a>
+                <a href="https://github.com/OrsooTR/kage-studio/releases/latest/download/KageStudioSetup.exe"><svg class="ic"><use href="#i-download"/></svg> Download</a>
+            </div>
+        </div>
+        <div class="foot-bottom">改善 · Kage Studio — made for anime editors.</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
