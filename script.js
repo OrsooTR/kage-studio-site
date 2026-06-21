@@ -31,7 +31,7 @@
   }
 
   // ---- scroll reveal ----
-  var targets = [].slice.call(document.querySelectorAll(".section-head, .feature, .showcase-copy, .showcase-mock, .dl-card"));
+  var targets = [].slice.call(document.querySelectorAll(".section-head, .feature, .showcase-copy, .showcase-mock, .faq, .dl-card"));
   targets.forEach(function (el) { el.classList.add("reveal"); });
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
