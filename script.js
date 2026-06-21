@@ -44,3 +44,22 @@
     targets.forEach(function (el) { el.classList.add("in"); });
   }
 })();
+
+/* hero mockup parallax tilt (desktop pointer only) */
+(function () {
+  if (!window.matchMedia) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+  var hero = document.querySelector(".hero"), panel = document.querySelector(".hero .mock-panel");
+  if (!hero || !panel) return;
+  var raf = null, tx = -8, ty = 3;
+  function apply() { panel.style.transform = "perspective(1400px) rotateY(" + tx.toFixed(2) + "deg) rotateX(" + ty.toFixed(2) + "deg)"; raf = null; }
+  hero.addEventListener("mousemove", function (e) {
+    if (window.innerWidth <= 900) return;
+    var r = hero.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+    tx = -8 + x * 12; ty = 3 - y * 10;
+    if (!raf) raf = requestAnimationFrame(apply);
+  });
+  hero.addEventListener("mouseleave", function () { tx = -8; ty = 3; if (!raf) raf = requestAnimationFrame(apply); });
+})();
