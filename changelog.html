@@ -75,9 +75,20 @@
                 list.appendChild(item);
             });
         }
-        fetch("https://api.github.com/repos/OrsooTR/kage-studio/contents/changelog.json?ref=main&t=" + Date.now(), { headers: { Accept: "application/vnd.github.raw" } })
+        function parseData(txt) {
+            var data = JSON.parse(txt);
+            if (data && data.releases) return data.releases;            // raw file
+            if (data && data.content) {                                  // API metadata (base64)
+                var bin = atob(String(data.content).replace(/\s/g, ""));
+                var bytes = new Uint8Array(bin.length);
+                for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+                return (JSON.parse(new TextDecoder("utf-8").decode(bytes)) || {}).releases || [];
+            }
+            return [];
+        }
+        fetch("https://api.github.com/repos/OrsooTR/kage-studio/contents/changelog.json?ref=main&t=" + Date.now())
             .then(function (res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.text(); })
-            .then(function (txt) { render((JSON.parse(txt) || {}).releases || []); })
+            .then(function (txt) { render(parseData(txt)); })
             .catch(function () {
                 list.innerHTML = '<p class="muted">Couldn’t load the changelog right now. See all releases on <a class="lnk" href="https://github.com/OrsooTR/kage-studio/commits/main" target="_blank" rel="noopener">GitHub</a>.</p>';
             });
